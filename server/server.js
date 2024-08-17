@@ -2,7 +2,7 @@
  const mongoose = require('mongoose');
  const cors = require('cors');
 
- require('dotenv').config();
+ require('dotenv').config({path: "../.env"});
  const mongoodb = process.env.MONGODB_STRING;
  const port = process.env.PORT || 5000;
 
