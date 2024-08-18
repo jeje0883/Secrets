@@ -34,8 +34,8 @@ app.use("/", homeRoute);
 const postRoute = require("./routers/postRoute");
 app.use("/posts", postRoute);
 
-// const adminRoute = require("./routers/adminRoute");
-// app.use("/admin", adminRoute);
+const adminRoute = require("./routers/adminRoute");
+app.use("/admin", adminRoute);
 
 
 

@@ -16,6 +16,24 @@ module.exports.registerUser = (req, res) => {
     .catch(error => errorHandler (error, req, res)); 
 }
 
+module.exports.userLogin = (req, res) => {
+    return User.findOne({email : req.body.email})
+        .then((result) => {
+            if (!result) {
+                res.status(401).send({ message: 'Invalid email' });
+            }
+            const isPasswordCorrect = bcrypt.compareSync(req.body.password, result.password);
+
+            if (isPasswordCorrect) {
+                res.send({ access: auth.createAccessToken(result) });
+            } else {
+                res.status(401).send({ error: 'Invalid password' });
+            }})
+            .catch(error => errorHandler (error, req, res));
+}
+
+
+
 module.exports.getUsers = (req, res) => {
     //console.log('getUsers');
     return User.find()
