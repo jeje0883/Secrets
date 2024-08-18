@@ -26,13 +26,19 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const userRoute = require("./routers/userRoute");
-const homeRoute = require("./routers/homeRoute");
-// const secretRoutes = require("./routers/secretRoutes");
-
 app.use('/users', userRoute);
-// app.use('secrets', secretRoutes);
 
+const homeRoute = require("./routers/homeRoute");
 app.use("/", homeRoute);
+
+const postRoute = require("./routers/postRoute");
+app.use("/posts", postRoute);
+
+// const adminRoute = require("./routers/adminRoute");
+// app.use("/admin", adminRoute);
+
+
+
 
 if (require.main === module) {
     app.listen(port, () => console.log(`Server running on port ${port}`));
