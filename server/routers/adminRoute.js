@@ -9,6 +9,6 @@ const adminController = require('../controllers/adminController');
 
 const router =express.Router();
 
-router.get('/', verifyAdmin, adminController.adminHome);
+router.get('/', verify, verifyAdmin, adminController.adminHome);
 
 module.exports = router;
