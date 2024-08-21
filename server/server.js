@@ -1,6 +1,9 @@
  const express = require('express');
  const mongoose = require('mongoose');
  const cors = require('cors');
+ const passport = require("passport");
+ const session = require("express-session");
+ require("./auth/passport");
 
  require('dotenv').config({path: "../.env"});
  const mongoodb = process.env.MONGODB_STRING;
@@ -24,6 +27,13 @@ const corsOptions = {
 }
  
 app.use(cors(corsOptions));
+app.use(session({
+    secret: process.env.clientSecret,
+    resave: false,
+    saveUninitialize: false
+  }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const userRoute = require("./routers/userRoute");
 app.use('/users', userRoute);
