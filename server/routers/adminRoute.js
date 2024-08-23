@@ -7,7 +7,7 @@ const Post = require('../models/Post');
 const auth = require('../auth/auth');
 const adminController = require('../controllers/adminController');
 
-const router =express.Router();
+const router = express.Router();
 
 router.get('/', verify, verifyAdmin, adminController.adminHome);
 
