@@ -13,7 +13,7 @@ router.post('/login', userController.userLogin);
 
 // router.get('/logout', verify, userController.logout);
 
-// router.get('/profile', verify, userController.profile);
+router.get('/profile', verify, userController.profile);
 
 router.get("/google",
 	passport.authenticate("google", {
