@@ -7,16 +7,12 @@
 
  require('dotenv').config({path: "../.env"});
  const mongoodb = process.env.MONGODB_STRING;
- const port = process.env.PORT || 5000;
+ const port = process.env.PORT || 3000;
 
  //connect to the MongoDB server
  mongoose.connect(mongoodb);
  mongoose.connection.on('connected', () => console.log('Now connected to MongoDB Atlas'));
 
-
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 
 //set up cors middleware
@@ -25,7 +21,10 @@ const corsOptions = {
     credentials: true,
     optionsSuccessStatus: 200
 }
- 
+
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 app.use(session({
     secret: process.env.clientSecret,
@@ -36,18 +35,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const userRoute = require("./routers/userRoute");
-app.use('/users', userRoute);
-
 const homeRoute = require("./routers/homeRoute");
-app.use("/", homeRoute);
-
 const postRoute = require("./routers/postRoute");
-app.use("/posts", postRoute);
-
 const adminRoute = require("./routers/adminRoute");
+
+app.use('/users', userRoute);
+app.use("/", homeRoute);
+app.use("/posts", postRoute);
 app.use("/admin", adminRoute);
-
-
 
 
 if (require.main === module) {
